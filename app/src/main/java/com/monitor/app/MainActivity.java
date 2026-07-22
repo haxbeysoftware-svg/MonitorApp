@@ -99,7 +99,24 @@ public class MainActivity extends AppCompatActivity {
 
     private List<PeerConnection.IceServer> getIceServers() {
         List<PeerConnection.IceServer> iceServers = new ArrayList<PeerConnection.IceServer>();
-        iceServers.add(PeerConnection.IceServer.builder("stun:stun.l.google.com:19302").createIceServer());
+        iceServers.add(PeerConnection.IceServer.builder("stun:stun.relay.metered.ca:80").createIceServer());
+        iceServers.add(PeerConnection.IceServer.builder("turn:global.relay.metered.ca:80")
+                .setUsername("6e19a374f95004d5aa0269ac")
+                .setPassword("03EFYItjIl2Lt1uv")
+                .createIceServer());
+        iceServers.add(PeerConnection.IceServer.builder("turn:global.relay.metered.ca:80?transport=tcp")
+                .setUsername("6e19a374f95004d5aa0269ac")
+                .setPassword("03EFYItjIl2Lt1uv")
+                .createIceServer());
+        iceServers.add(PeerConnection.IceServer.builder("turn:global.relay.metered.ca:443")
+                .setUsername("6e19a374f95004d5aa0269ac")
+                .setPassword("03EFYItjIl2Lt1uv")
+                .createIceServer());
+        iceServers.add(PeerConnection.IceServer.builder("turns:global.relay.metered.ca:443?transport=tcp")
+                .setUsername("6e19a374f95004d5aa0269ac")
+                .setPassword("03EFYItjIl2Lt1uv")
+                .createIceServer());
+
         return iceServers;
     }
 
