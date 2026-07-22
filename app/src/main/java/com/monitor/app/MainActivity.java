@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         PeerConnectionFactory.InitializationOptions initOptions =
                 PeerConnectionFactory.InitializationOptions.builder(this)
                         .createInitializationOptions();
-        PeerConnectionFactory.initialize(initOptions);
 
         VideoEncoderFactory encoderFactory =
                 new DefaultVideoEncoderFactory(eglBase.getEglBaseContext(), true, true);
@@ -327,4 +326,4 @@ public class MainActivity extends AppCompatActivity {
         if (wsClient != null) wsClient.close();
         remoteView.release();
     }
-                  }
+}
