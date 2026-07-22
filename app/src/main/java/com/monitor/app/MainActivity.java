@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     private void createPeerConnection() {
         PeerConnection.RTCConfiguration rtcConfig =
                 new PeerConnection.RTCConfiguration(getIceServers());
-        rtcConfig.iceTransportsType = PeerConnection.IceTransportsType.RELAY;
         
         peerConnection = peerConnectionFactory.createPeerConnection(rtcConfig, new PeerConnection.Observer() {
             @Override
