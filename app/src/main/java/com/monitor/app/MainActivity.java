@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         PeerConnectionFactory.InitializationOptions initOptions =
                 PeerConnectionFactory.InitializationOptions.builder(this)
                         .createInitializationOptions();
+        PeerConnectionFactory.initialize(initOptions);
 
         VideoEncoderFactory encoderFactory =
                 new DefaultVideoEncoderFactory(eglBase.getEglBaseContext(), true, true);
