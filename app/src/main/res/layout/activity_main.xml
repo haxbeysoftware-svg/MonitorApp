@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <!-- ANA ÖZELLİK: Kamera Görüntüsünün Oynatıldığı Yer -->
     <org.webrtc.SurfaceViewRenderer
         android:id="@+id/remoteView"
         android:layout_width="match_parent"
@@ -31,8 +32,8 @@
             android:id="@+id/roomIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Oda ID (örn: oda1)"
-            android:text="oda1"
+            android:hint="Oda ID (Camera app'te: 228433736485)"
+            android:text="228433736485"
             android:textColor="#FFFFFF"
             android:textColorHint="#AAAAAA"
             android:layout_marginBottom="12dp"/>
@@ -44,6 +45,25 @@
             android:text="Bağlan"/>
 
     </LinearLayout>
+
+    <!-- EKSTRA ÖZELLİK: Gelen bildirimlerin alt köşede gösterildiği kısım -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_above="@id/switchCameraButton"
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="#A6000000"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/notificationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFEB3B"
+            android:textSize="13sp"
+            android:text="Kamera/Mikrofon aktif. Bildirimler bekleniyor...\n"/>
+    </ScrollView>
 
     <Button
         android:id="@+id/switchCameraButton"
