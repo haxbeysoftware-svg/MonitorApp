@@ -162,6 +162,17 @@ public class MainActivity extends AppCompatActivity {
                             setStatus("Video alınıyor");
                         }
                     });
+                } else if (track instanceof AudioTrack) {
+                    // WebRTC ses çıkışını otomatik olarak cihaz hoparlörüne yönlendirir,
+                    // ek bir sink eklemeye gerek yok. Sadece durumu güncelliyoruz.
+                    final AudioTrack audioTrack = (AudioTrack) track;
+                    audioTrack.setEnabled(true);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setStatus("Video ve ses alınıyor");
+                        }
+                    });
                 }
             }
         });
