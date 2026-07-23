@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private Button connectButton;
     private Button switchCameraButton;
     private SurfaceViewRenderer remoteView;
+    private TextView notificationText;
 
-    private String roomId = "oda1";
+    private String roomId = "228433736485";
     private boolean connected = false;
 
     private EglBase eglBase;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         connectButton = (Button) findViewById(R.id.connectButton);
         switchCameraButton = (Button) findViewById(R.id.switchCameraButton);
         remoteView = (SurfaceViewRenderer) findViewById(R.id.remoteView);
+        notificationText = (TextView) findViewById(R.id.notificationText);
 
         eglBase = EglBase.create();
         remoteView.init(eglBase.getEglBaseContext(), null);
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!connected) {
                     roomId = roomIdInput.getText().toString().trim();
-                    if (roomId.isEmpty()) roomId = "oda1";
+                    if (roomId.isEmpty()) roomId = "228433736485";
                     startConnection();
                 }
             }
@@ -116,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 .setUsername("6e19a374f95004d5aa0269ac")
                 .setPassword("03EFYItjIl2Lt1uv")
                 .createIceServer());
-
         return iceServers;
     }
 
@@ -153,24 +154,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAddTrack(RtpReceiver rtpReceiver, MediaStream[] mediaStreams) {
                 MediaStreamTrack track = rtpReceiver.track();
+                // ANA ÖZELLİK: Kamera ve Mikrofon alınıyor
                 if (track instanceof VideoTrack) {
                     final VideoTrack videoTrack = (VideoTrack) track;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             videoTrack.addSink(remoteView);
-                            setStatus("Video alınıyor");
+                            setStatus("Görüntü aktarılıyor");
                         }
                     });
                 } else if (track instanceof AudioTrack) {
-                    // WebRTC ses çıkışını otomatik olarak cihaz hoparlörüne yönlendirir,
-                    // ek bir sink eklemeye gerek yok. Sadece durumu güncelliyoruz.
                     final AudioTrack audioTrack = (AudioTrack) track;
                     audioTrack.setEnabled(true);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setStatus("Video ve ses alınıyor");
+                            setStatus("Görüntü ve Ses aktarılıyor");
                         }
                     });
                 }
@@ -311,6 +311,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         setStatus("Kamera bağlandı, bekleniyor...");
+                    }
+                });
+            } else if (type.equals("notification")) {
+                // EKSTRA ÖZELLİK: Gelen Bildirimi Yakalama ve Ekrana Basma
+                final String title = obj.optString("title", "Başlıksız");
+                final String text = obj.optString("text", "");
+                final String pkgName = obj.optString("package", "");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String currentText = notificationText.getText().toString();
+                        String newNotification = "🔔 [" + pkgName + "] " + title + ": " + text + "\n\n";
+                        notificationText.setText(newNotification + currentText);
                     }
                 });
             }
